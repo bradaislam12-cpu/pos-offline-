@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&S Pro - Stock & Sales Manager</title>
+
+<!-- ربط ملفات CSS وJS لاحقًا -->
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script src="app.js" defer></script>
+
+</head>
+<body>
+
+<header>S&S PRO - نظام إدارة احترافي</header>
+
+<nav>
+<button onclick="showTab('dashboard',this)" class="active">لوحة التحكم</button>
+<button onclick="showTab('products',this)">المنتجات</button>
+<button onclick="showTab('sales',this)">البيع</button>
+<button onclick="showTab('reports',this)">التقارير</button>
+</nav>
+
+<!-- Dashboard -->
+<div id="dashboard" class="section" style="display:block">
+  <div class="stats">
+    <div class="statBox">عدد المنتجات<br><span id="statProducts">0</span></div>
+    <div class="statBox">مبيعات اليوم<br><span id="statSales">0</span></div>
+    <div class="statBox">أرباح اليوم<br><span id="statProfit">0</span> د.ج</div>
+  </div>
+</div>
+
+<!-- Products -->
+<div id="products" class="section">
+  <div class="card">
+    <h3>إضافة / تعديل منتج</h3>
+    <input type="hidden" id="editIndex">
+    <input id="pName" placeholder="اسم المنتج">
+    <input type="number" id="pPrice" placeholder="السعر (د.ج)">
+    <input type="number" id="pQty" placeholder="الكمية">
+    <div class="scanRow">
+      <input id="pBarcode" placeholder="الباركود">
+      <button class="primary scanBtn" onclick="startScan('product')">📷</button>
+    </div>
+    <div id="readerProduct"></div>
+    <button class="primary" onclick="saveProduct()">حفظ المنتج</button>
+  </div>
+
+  <div class="card">
+    <input id="search" placeholder="بحث..." onkeyup="renderProducts()">
+    <div id="productList"></div>
+  </div>
+</div>
+
+<!-- Sales -->
+<div id="sales" class="section">
+  <div class="card">
+    <div class="scanRow">
+      <input id="sellBarcode" placeholder="أدخل أو امسح الباركود">
+      <button class="primary scanBtn" onclick="startScan('sale')">📷</button>
+    </div>
+    <div id="readerSale"></div>
+    <button class="primary" onclick="addToCart()">إضافة للسلة</button>
+    <div id="cart"></div>
+    <div class="totalBox">الإجمالي: <span id="total">0</span> د.ج</div>
+    <button class="primary" onclick="completeSale()">إتمام البيع</button>
+  </div>
+</div>
+
+<!-- Reports -->
+<div id="reports" class="section">
+  <div class="card">
+    <h3>تقرير اليوم</h3>
+    <div id="reportBox"></div>
+  </div>
+</div>
+
+</body>
+</html>
